@@ -235,7 +235,6 @@ end
 
 function WindowView:close(cleanup)
     if self.blame_window ~= nil then
-        vim.api.nvim_del_augroup_by_name("NvimBlame")
         self.blame_stack_client:close()
 
         --if original window still present *Reset options*
@@ -256,6 +255,7 @@ function WindowView:close(cleanup)
             "User",
             { pattern = "BlameViewClosed", modeline = false, data = "window" }
         )
+        vim.api.nvim_del_augroup_by_name("NvimBlame")
         self.original_window = nil
         self.blame_window = nil
         self.blamed_lines = nil
